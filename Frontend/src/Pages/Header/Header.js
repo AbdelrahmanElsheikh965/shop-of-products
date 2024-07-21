@@ -14,6 +14,14 @@ export default function Header() {
     }
   });
 
+  const handleMassDelete = () => {
+    navigator('/delete-multiple');
+  };
+
+  const handleAddProduct = () => {
+    navigator('/add-product');
+  };
+
   return (
     <header
       id="header"
@@ -23,7 +31,7 @@ export default function Header() {
       <div class="container d-flex align-items-center justify-content-between">
         <h1 class="logo">
           {showAddProductLinks ? (
-            <Link to="/">Product Add</Link>
+            <h2>Product Add</h2>
           ):(
             <Link to="/">Product List</Link>
           )}          
@@ -36,17 +44,32 @@ export default function Header() {
                 <Link to="/save">Save</Link>
               </li>
               <li>
-                <Link to="/cancel">Cancel</Link>
+                <Link to="/">Cancel</Link>
               </li>
             </ul>
           ) : (
             <ul>
+
               <li>
-                <Link to="/add-product">ADD</Link>
+                  <button onClick={handleAddProduct} style={{ 
+                    border: "1px solid",
+                    boxShadow: "5px 5px",
+                    backgroundColor: "white"
+                  }}>
+                    ADD
+                  </button>
               </li>
-              <li>
-                <Link to="/delete-multiple">MASS DELETE</Link>
+
+                <li>
+                  <button onClick={handleMassDelete} id="delete-product-btn" style={{ 
+                    border: "1px solid",
+                    boxShadow: "5px 5px",
+                    backgroundColor: "white"
+                  }}>
+                    MASS DELETE
+                  </button>
               </li>
+              
             </ul>
           )}
 

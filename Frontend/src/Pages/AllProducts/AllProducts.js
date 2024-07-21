@@ -10,7 +10,7 @@ export default function AllProducts() {
             <div class="card card-blog">
               <div className="card-body" style={{ textAlign: "center" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
-                  <input type="checkbox" style={{ marginRight: "10px" }} />
+                  <input type="checkbox" className="delete-checkbox" style={{ marginRight: "10px" }} />
                 </div>
                 <p>SKU (unique for each product)</p>
                 <p>Name</p>
