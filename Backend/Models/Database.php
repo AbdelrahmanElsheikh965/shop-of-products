@@ -1,6 +1,6 @@
 <?php
 
-class DatabaseConnection
+class Database
 {
 
   private static $connection;
@@ -21,8 +21,9 @@ class DatabaseConnection
     return self::$connection;
   }
 
-  private static function get_database_creds() {
-    $env = parse_ini_file('.env');
+  private static function get_database_creds()
+  {
+    $env = parse_ini_file('config.env');
     
     return [
       $env["DB_HOST"],
