@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import $ from 'jquery';
 
 export default function Header() {
   const [showAddProductLinks, setshowAddProductLinks] = useState(false);
   const navigator = useNavigate();
 
+  
   useEffect(() => {
     if (window.location.pathname === "/add-product") {
       setshowAddProductLinks(true);
@@ -16,6 +18,26 @@ export default function Header() {
 
   const handleMassDelete = () => {
     navigator('/delete-multiple');
+  };
+
+  const handleSave = () => {
+    
+    const formData = $('#product_form').serialize();
+    console.log("Form Data", formData);
+
+    // Send form data via jQuery AJAX
+    $.ajax({
+      url: 'http://127.0.0.1:8000/index.php/product/list',
+      type: 'GET',
+      // data: formData,
+      success: function(response) {
+        console.log('Form submitted successfully:', response);
+      },
+      error: function(error) {
+        console.log('Error submitting form:', error);
+      }
+    });
+    
   };
 
   const handleAddProduct = () => {
@@ -41,7 +63,7 @@ export default function Header() {
           {showAddProductLinks ? (
             <ul>
               <li>
-                <Link to="/save">Save</Link>
+                <Link onClick={handleSave}>Save</Link>
               </li>
               <li>
                 <Link to="/">Cancel</Link>
