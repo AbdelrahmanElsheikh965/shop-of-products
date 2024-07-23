@@ -15,5 +15,5 @@ export const saveProduct = (productType) => {
 };
 
 export const listProducts = () => {
-  return axiosInstance.get(`/products`);
+  return axiosInstance.get(`/index.php/product/list`);
 };
