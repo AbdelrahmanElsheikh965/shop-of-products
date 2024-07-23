@@ -4,38 +4,29 @@ require_once 'Database.php';
 
 abstract class Product
 {
-  public $sku;
-  public $name;
-  public $price;
+  protected $sku;
+  protected $name;
+  protected $price;
 
   public static function getAllProducts()
   {
     $conn = Database::get_database_instance();
-    $query = " 
-                SELECT products.*, dvds.size FROM products JOIN dvds ON products.sku = dvds.product_sku;
-                SELECT products.*, books.weight FROM products JOIN books ON products.sku = books.product_sku;
-                SELECT products.*, furnitures.height, furnitures.width, furnitures.length 
-                  FROM products JOIN furnitures ON products.sku = furnitures.product_sku;
-            ";
-
-    // Execute multiple queries
-    if ($conn->multi_query($query)) {
-      do {
-        
-        if ($result = $conn->store_result()) {
+    mysqli_set_charset($conn, 'utf8');
+    
+    $query = "SELECT products.*, furnitures.height, furnitures.width, furnitures.length, books.weight, dvds.size 
+            FROM products 
+            LEFT JOIN dvds ON products.sku = dvds.product_sku
+            LEFT JOIN furnitures ON products.sku = furnitures.product_sku
+            LEFT JOIN books ON products.sku = books.product_sku
+            ORDER BY products.sku;
+          ";
           
-          while ($row = $result->fetch_assoc()) 
-          {
-            print_r($row);
-          }
-          $result->free();
-        }
-        
-      } while ($conn->more_results() && $conn->next_result());
-    } else {
-      echo "Error: " . $conn->error;
+    $result = mysqli_query($conn, $query);
+    $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if (mysqli_num_rows($result) > 0) {
+      return $data;
     }
-
+    return false;
     $conn->close();
   }
 }

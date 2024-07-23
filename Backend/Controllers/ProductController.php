@@ -12,6 +12,8 @@ class ProductController extends BaseController
         if (strtoupper($requestMethod) == 'GET') {
             try {
                 $allProducts = Product::getAllProducts();
+                $this->classifyData($allProducts);
+
                 $responseData = json_encode($allProducts);
             } catch (Error $e) {
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
@@ -33,6 +35,18 @@ class ProductController extends BaseController
             $this->sendOutput(json_encode(array('error' => $strErrorDesc)), 
                 array('Content-Type: application/json', $strErrorHeader)
             );
+        }
+    }
+
+    private function classifyData(&$data) {
+        foreach($data as &$product) {
+            if (!isset($product['size']) && !isset($product['weight'])) {
+                $product['type'] = 'furniture';
+            } else if (isset($product['weight'])) {
+                $product['type'] = 'book';
+            } else if (isset($product['size'])) {
+                $product['type'] = 'dvd';
+            }            
         }
     }
   
