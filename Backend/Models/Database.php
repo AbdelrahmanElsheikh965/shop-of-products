@@ -32,4 +32,25 @@ class Database
       $env["DB_NAME"]
     ];
   }
+
+  public static function saveIntoDB($tableName, $data)
+  {
+    $conn = Database::get_database_instance();
+
+     // Prepare the query
+     $columns = implode(", ", array_keys($data));
+     $placeholders = implode(", ", array_fill(0, count($data), '?'));
+     $sql = "INSERT INTO $tableName ($columns) VALUES ($placeholders)";
+ 
+     $stmt = $conn->prepare($sql);
+ 
+     // Bind parameters
+     $types = str_repeat('s', count($data)); // Assuming all data is of type string
+     $values = array_values($data);
+     $stmt->bind_param($types, ...$values);
+ 
+     // Execute the query
+     return $stmt->execute();
+  }
+
 }

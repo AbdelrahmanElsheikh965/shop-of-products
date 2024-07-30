@@ -40,12 +40,12 @@ export default function AddNewProduct () {
         <br />
 
         {/* Type Switcher */}
-        <div class="form-group" id="productType" style={{ display: "flex", alignItems: "center" }}>
+        <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
           <label for="name" style={{ width: "15%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>Type Switcher</label>
-          <select style={{ width: "110px"}} onChange={handleType} name="type">
+          <select style={{ width: "110px"}} onChange={handleType} id="productType">
             <option value="DVD"> DVD </option>
-            <option value="Book" > Book </option>
-            <option value="Furniture" > Furniture </option>
+            <option value="Book"> Book </option>
+            <option value="Furniture"> Furniture </option>
           </select>
         </div>
 

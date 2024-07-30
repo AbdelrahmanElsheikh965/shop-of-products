@@ -29,4 +29,7 @@ abstract class Product
     return false;
     $conn->close();
   }
+
+  protected abstract function save($data);
+
 }

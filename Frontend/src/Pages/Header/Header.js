@@ -22,14 +22,39 @@ export default function Header() {
 
   const handleSave = () => {
     
-    const formData = $('#product_form').serialize();
-    console.log("Form Data", formData);
+    // const formData = $('#product_form').serialize();
+    // console.log("formData", formData);
+    var productType = $("#productType").val();
 
-    // Send form data via jQuery AJAX
+    var productData = {
+      type:  productType,
+      data: {
+        sku: $("#sku").val(),
+        name: $("#name").val(),
+        price: $("#price").val()
+      }
+    }
+
+    switch (productType) {
+      case 'DVD':
+        productData.data.size = $("#size").val()
+        break;
+    
+      case 'Book':
+        productData.data.size = $("#weight").val()      
+        break;
+
+      case 'Furniture':
+        productData.data.size = $("#height").val()
+        productData.data.size = $("#width").val()
+        productData.data.size = $("#length").val()      
+        break;
+    }
+
     $.ajax({
-      url: 'http://127.0.0.1:8000/index.php/product/list',
-      type: 'GET',
-      // data: formData,
+      url: 'http://127.0.0.1:8000/index.php/product/add',
+      type: 'POST',
+      data: productData,
       success: function(response) {
         console.log('Form submitted successfully:', response);
       },
