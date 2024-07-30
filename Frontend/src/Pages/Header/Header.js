@@ -21,9 +21,7 @@ export default function Header() {
   };
 
   const handleSave = () => {
-    
-    // const formData = $('#product_form').serialize();
-    // console.log("formData", formData);
+  
     var productType = $("#productType").val();
 
     var productData = {
@@ -51,8 +49,6 @@ export default function Header() {
         break;
     }
 
-    console.log("productData.data", productData.data);
-
     $.ajax({
       url: 'http://127.0.0.1:8000/index.php/product/add',
       type: 'POST',
@@ -65,12 +61,17 @@ export default function Header() {
       }
     });
     
+    navigator('/');
+
   };
 
   const handleAddProduct = () => {
     navigator('/add-product');
   };
 
+  const handleCancel = () => {
+    navigator('/');
+  }
   return (
     <header
       id="header"
@@ -82,7 +83,7 @@ export default function Header() {
           {showAddProductLinks ? (
             <h2>Product Add</h2>
           ):(
-            <Link to="/">Product List</Link>
+            <h2>Product List</h2>
           )}          
         </h1>
 
@@ -90,11 +91,20 @@ export default function Header() {
           {showAddProductLinks ? (
             <ul>
               <li>
-                <Link onClick={handleSave}>Save</Link>
+                <button onClick={handleSave} style={{ 
+                    border: "1px solid",
+                    boxShadow: "5px 5px",
+                    backgroundColor: "white"
+                  }}>Save</button>
               </li>
               <li>
-                <Link to="/">Cancel</Link>
+                <button onClick={handleCancel}  style={{ 
+                    border: "1px solid",
+                    boxShadow: "5px 5px",
+                    backgroundColor: "white"
+                  }}>Cancel</button>
               </li>
+
             </ul>
           ) : (
             <ul>
