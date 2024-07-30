@@ -41,15 +41,17 @@ export default function Header() {
         break;
     
       case 'Book':
-        productData.data.size = $("#weight").val()      
+        productData.data.weight = $("#weight").val()      
         break;
 
       case 'Furniture':
-        productData.data.size = $("#height").val()
-        productData.data.size = $("#width").val()
-        productData.data.size = $("#length").val()      
+        productData.data.height = $("#height").val()
+        productData.data.width = $("#width").val()
+        productData.data.length = $("#length").val()      
         break;
     }
+
+    console.log("productData.data", productData.data);
 
     $.ajax({
       url: 'http://127.0.0.1:8000/index.php/product/add',

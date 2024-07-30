@@ -54,19 +54,9 @@ class DVD extends Product
     return $this->size;
   }
 
-
   public function save($data)
   {
-    /* INSERT INTO `products` (`sku`, `name`, `price`) VALUES ('FURN-92', 'ikea-new-version', '8843.000'); */
     return Database::saveIntoDB('dvds', $data);
   }
-
-  /**
-   * 
-   * save('products', " 'FURN-92', 'ikea-new-version', 8843 ")
-   * save('dvds', " 'FURN-92', 32 ")
-   * 
-   */
-
 
 }

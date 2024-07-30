@@ -2,43 +2,69 @@
 
 class Furniture extends Product
 {
+
+  /** sku */
+  public function setSku($sku) {
+    $this->sku = $sku;
+  }
+
+  public function getSku() {
+    return $this->sku;
+  }
+
+  /** name */
+  public function setName($name) {
+    $this->name = $name;
+  }
+
+  public function getName() {
+    return $this->name;
+  }
+
+  /** price */
+  public function setPrice($price) {
+    $this->price = $price;
+  }
+
+  public function getPrice() {
+    return $this->price;
+  }
+
   private $height;
   private $width;
   private $length;
 
+  // ============================================================= //
+
   // Height
-  public function setHeight($height){
+  public function setHeight($height) {
     $this->height = $height;
   }
   
-  public function getHeight(){
+  public function getHeight() {
     return $this->height;
   }
 
-
   // Width
-  public function setWidth($width){
+  public function setWidth($width) {
     $this->width = $width;
   }
   
-  public function getWidth(){
+  public function getWidth() {
     return $this->width;
   }
 
-
   // Length
-  public function setlength($length){
+  public function setLength($length) {
     $this->length = $length;
   }
   
-  public function getlength(){
+  public function getLength() {
     return $this->length;
   }
 
-  public function save($data)
-  {
-    // $data = " '$this->height' . ',' . '$this->width' . ',' . '$this->length' ";
-    // echo Database::saveIntoDB('furnitures', $data);
+  public function save($data) {
+    return Database::saveIntoDB('furnitures', $data);
   }
 
 }

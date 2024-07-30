@@ -1,6 +1,8 @@
 <?php
 
 require  __DIR__ . "/../" . "/Models/DVD.php";
+require  __DIR__ . "/../" . "/Models/Book.php";
+require  __DIR__ . "/../" . "/Models/Furniture.php";
 
 class ProductController extends BaseController
 {
@@ -38,7 +40,6 @@ class ProductController extends BaseController
             );
         }
     }
-
 
     // We need to know type to display right corresponding attribute in card.
     private function classifyData(&$data)
@@ -93,11 +94,46 @@ class ProductController extends BaseController
                                 break;
                                 
                             case 'Furniture':
-                                # code...
+                                $furniture = new Furniture();
+                                $furniture->setSku($ProductData['sku']);
+                                $furniture->setName($ProductData['name']);
+                                $furniture->setPrice($ProductData['price']);
+
+                                $furniture->setHeight($ProductData['height']);
+                                $furniture->setLength($ProductData['length']);
+                                $furniture->setWidth($ProductData['width']);
+                                
+                                $res_1 = Database::saveIntoDB('products', [
+                                    'sku' => $furniture->getSku(),
+                                    'name' => $furniture->getName(),
+                                    'price' =>  $furniture->getPrice()
+                                 ]);
+
+                                $res_2 = $furniture->save([
+                                    'product_sku' => $furniture->getSku(),
+                                    'length' => $furniture->getLength(),
+                                    'width' => $furniture->getWidth(),
+                                    'height' => $furniture->getHeight(),
+                                 ]);
                                 break;
                                 
                             case 'Book':
-                                # code...
+                                $book = new Book();
+                                $book->setSku($ProductData['sku']);
+                                $book->setName($ProductData['name']);
+                                $book->setPrice($ProductData['price']);
+                                $book->setWeight($ProductData['weight']);
+                                
+                                $res_1 = Database::saveIntoDB('products', [
+                                    'sku' => $book->getSku(),
+                                    'name' => $book->getName(),
+                                    'price' =>  $book->getPrice()
+                                 ]);
+
+                                $res_2 = $book->save([
+                                    'product_sku' => $book->getSku(),
+                                    'weight' => $book->getWeight(),
+                                 ]);
                                 break;
                         }
                     }
