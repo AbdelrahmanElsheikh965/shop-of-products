@@ -34,6 +34,7 @@ const Layout = () => {
 
   const handleSave = () => {
       if (validateForm()) {
+          setFormData({ sku: "", name: "", price: "" });
           saveProductData(navigator);
       }
   };
