@@ -1,18 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
 import { FormContext } from "../../routes";
-
 
 export default function Header() {
 
-  const { handleSave } = useContext(FormContext);
-
-  const [showAddProductLinks, setshowAddProductLinks] = useState(false);
   const navigator = useNavigate();
-
-  
+  const { handleSave } = useContext(FormContext);
+  const [showAddProductLinks, setshowAddProductLinks] = useState(false);
+ 
+  // Configuring paths
   useEffect(() => {
     if (window.location.pathname === "/add-product") {
       setshowAddProductLinks(true);
@@ -21,11 +17,10 @@ export default function Header() {
     }
   });
 
+
   const handleMassDelete = () => {
     navigator('/delete-multiple');
-  };
-
- 
+  }; 
 
   const handleAddProduct = () => {    
     navigator('/add-product');
@@ -34,11 +29,12 @@ export default function Header() {
   const handleCancel = () => {
     navigator('/');
   }
+
   return (
     <header
       id="header"
       class="fixed-top"
-      style={{ "background-color": "grey" }}
+      style={{ "background-color": "#f5f5f5" }}
     >
       <div class="container d-flex align-items-center justify-content-between">
         <h1 class="logo">
