@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { FormContext } from "../../routes";
 
 export default function AddNewProduct () {
-    
+  
+  const { formData, errors, handleChange } = useContext(FormContext);
+
   const [type, setType] = useState('DVD');
 
   const handleType = (e) => {
@@ -13,30 +16,67 @@ export default function AddNewProduct () {
     
     <div class="container">
       <br /> <br /> <br /> <br /> <br />
+
       <form method="post" id="product_form" class="php-email-form form-container">
 
         {/* SKU */}
-        <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
-          <label for="name" style={{ width: "10%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>SKU</label>
-          <input type="text" name="sku" id="sku" style={{ width: "20%", height: "15px" }} />
+        <div className="row">          
+          <div className="col-sm-12">
+            <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
+              <label for="sku" style={{ width: "12%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>SKU</label>
+              <input   value={formData.sku}
+                            onChange={handleChange} type="text" name="sku" id="sku" style={{ width: "20%", height: "15px" }} 
+                            />
+            </div>            
+          </div>
+          <div className="col-sm-4">
+            {errors.sku && 
+            <div class="alert alert-danger" role="alert" style={{ 'height': '.25em', 'text-align': 'center', 'vertical-align': 'middle', 'line-height': '.25em'  }}>
+              {errors.sku}
+            </div>}            
+          </div>
         </div>
 
         <br />
 
         {/* Name */}
-        <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
-          <label for="name" style={{ width: "10%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>Name</label>
-          <input type="text" name="name" id="name" style={{ width: "20%", height: "15px" }} />
+        <div className="row">          
+          <div className="col-sm-12">
+            <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
+              <label for="name" style={{ width: "12%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>Name</label>
+              <input   value={formData.name}
+                            onChange={handleChange} type="text" name="name" id="name" style={{ width: "20%", height: "15px" }} 
+                            />
+            </div>            
+          </div>
+          <div className="col-sm-4">
+            {errors.name && 
+            <div class="alert alert-danger" role="alert" style={{ 'height': '.25em', 'text-align': 'center', 'vertical-align': 'middle', 'line-height': '.25em'  }}>
+              {errors.name}
+            </div>}            
+          </div>
         </div>
 
         <br />
 
         {/* Price */}
-        <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
-          <label for="name" style={{ width: "10%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>Price ($)</label>
-          <input type="text" name="price" id="price" style={{ width: "20%", height: "15px" }} />
+        <div className="row">          
+          <div className="col-sm-12">
+            <div class="form-group" style={{ display: "flex", alignItems: "center" }}>
+              <label for="price" style={{ width: "12%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>SKU</label>
+              <input   value={formData.price}
+                            onChange={handleChange} type="text" name="price" id="price" style={{ width: "20%", height: "15px" }} 
+                            />
+            </div>            
+          </div>
+          <div className="col-sm-4">
+            {errors.price && 
+            <div class="alert alert-danger" role="alert" style={{ 'height': '.25em', 'text-align': 'center', 'vertical-align': 'middle', 'line-height': '.25em'  }}>
+              {errors.price}
+            </div>}            
+          </div>
         </div>
-        
+
         <br />
 
         {/* Type Switcher */}

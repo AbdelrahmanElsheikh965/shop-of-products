@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import $ from 'jquery';
+import { FormContext } from "../../routes";
 
 export default function Header() {
+
+  const { handleSave } = useContext(FormContext);
+
   const [showAddProductLinks, setshowAddProductLinks] = useState(false);
   const navigator = useNavigate();
 
@@ -20,50 +24,49 @@ export default function Header() {
     navigator('/delete-multiple');
   };
 
-  const handleSave = () => {
-  
-    var productType = $("#productType").val();
+  // const handleSave = () => {
 
-    var productData = {
-      type:  productType,
-      data: {
-        sku: $("#sku").val(),
-        name: $("#name").val(),
-        price: $("#price").val()
-      }
-    }
+    // var productType = $("#productType").val();
+    // var productData = {
+    //   type:  productType,
+    //   data: {
+    //     sku: $("#sku").val(),
+    //     name: $("#name").val(),
+    //     price: $("#price").val()
+    //   }
+    // }
 
-    switch (productType) {
-      case 'DVD':
-        productData.data.size = $("#size").val()
-        break;
+    // switch (productType) {
+    //   case 'DVD':
+    //     productData.data.size = $("#size").val()
+    //     break;
     
-      case 'Book':
-        productData.data.weight = $("#weight").val()      
-        break;
+    //   case 'Book':
+    //     productData.data.weight = $("#weight").val()      
+    //     break;
 
-      case 'Furniture':
-        productData.data.height = $("#height").val()
-        productData.data.width = $("#width").val()
-        productData.data.length = $("#length").val()      
-        break;
-    }
+    //   case 'Furniture':
+    //     productData.data.height = $("#height").val()
+    //     productData.data.width = $("#width").val()
+    //     productData.data.length = $("#length").val()      
+    //     break;
+    // }
 
-    $.ajax({
-      url: 'http://127.0.0.1:8000/index.php/product/add',
-      type: 'POST',
-      data: productData,
-      success: function(response) {
-        console.log('Form submitted successfully:', response);
-      },
-      error: function(error) {
-        console.log('Error submitting form:', error);
-      }
-    });
+    // $.ajax({
+    //   url: 'http://127.0.0.1:8000/index.php/product/add',
+    //   type: 'POST',
+    //   data: productData,
+    //   success: function(response) {
+    //     console.log('Form submitted successfully:', response);
+    //   },
+    //   error: function(error) {
+    //     console.log('Error submitting form:', error);
+    //   }
+    // });
     
-    navigator('/');
+    // navigator('/');
 
-  };
+  // };
 
   const handleAddProduct = () => {
     navigator('/add-product');
@@ -91,7 +94,7 @@ export default function Header() {
           {showAddProductLinks ? (
             <ul>
               <li>
-                <button onClick={handleSave} style={{ 
+                <button formTarget="" onClick={handleSave} style={{ 
                     border: "1px solid",
                     boxShadow: "5px 5px",
                     backgroundColor: "white"
