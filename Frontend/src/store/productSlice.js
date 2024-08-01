@@ -12,6 +12,12 @@ export const addProduct = createAsyncThunk('addProduct', async (newProduct) => {
   return newProduct;
 });
 
+export const deleteProducts = createAsyncThunk('deleteProducts', async (targetProducts) => {
+  // Simulate an asynchronous operation, such as an API call
+  await new Promise((resolve) => setTimeout(resolve, 100)); // Simulate network delay
+  return targetProducts; 
+});
+
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
@@ -26,7 +32,13 @@ const productsSlice = createSlice({
       })
       .addCase(addProduct.fulfilled, (state, action) => {        
         state.data.push(action.payload); 
-      });
+      })
+      .addCase(deleteProducts.fulfilled, (state, action) => {    
+        const removedProducts = action.payload    
+        removedProducts.forEach(prod => {          
+          state.data = state.data.filter( p => p.sku !== prod.sku ); 
+        });
+      });;
   },
 });
 

@@ -3,8 +3,8 @@ import React from "react";
 export default function Product({ productData }) {
   return (
     <>
-      <div class="col-sm-3">
-        <div class="card card-blog">
+      <div className="col-sm-3">
+        <div className="card card-blog">
           <div className="card-body" style={{ textAlign: "center" }}>
             <div style={{ display: "flex", alignItems: "center" }}>
               <input
@@ -13,7 +13,7 @@ export default function Product({ productData }) {
                 style={{ marginRight: "10px" }}
               />
             </div>
-            <p>{productData.sku}</p>
+            <p className="pk">{productData.sku}</p>
             <p>{productData.name}</p>
             <p>{productData.price} $ </p>
 

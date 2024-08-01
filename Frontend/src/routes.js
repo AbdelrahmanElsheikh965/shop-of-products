@@ -7,7 +7,8 @@ import AddNewProduct from "./Pages/AddNewProduct/AddNewProduct";
 import { createContext, useState } from "react";
 import { checkRequired, checkRequiredAndNumber, saveProductData } from "./Helpers";
 import { useDispatch } from "react-redux";
-import { addProduct } from "./store/productSlice";
+import { addProduct, deleteProducts } from "./store/productSlice";
+import $ from "jquery";
 
 export const FormContext = createContext();
 
@@ -53,13 +54,26 @@ const Layout = () => {
       }
   };
 
+  function handleMassDelete () {
+    let data = [];
+    
+    const checkedCheckboxes = $('.delete-checkbox:checked');
+      checkedCheckboxes.each(function() {
+        const higherParent = $(this).closest('.card-body');  
+        const sku = higherParent.find('.pk').text().trim();
+        data.push({ sku });
+      });
+         
+      dispatch(deleteProducts(data));
+  }; 
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });    
   };
 
   return (
-    <FormContext.Provider value={{ formData, errors, handleChange, handleSave }}>
+    <FormContext.Provider value={{ formData, errors, handleChange, handleSave, handleMassDelete }}>
       <Header />
       <Outlet />
       {/* <Footer /> */}

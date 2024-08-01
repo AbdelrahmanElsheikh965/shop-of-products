@@ -5,12 +5,12 @@ export default function Footer () {
   return (
     <footer style={{'background-color': 'grey', color: "black"}}>
       
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="copyright-box">
-              <p class="copyright"> Scandiweb Test assignment </p>
-              <div class="credits">
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12">
+            <div className="copyright-box">
+              <p className="copyright"> Scandiweb Test assignment </p>
+              <div className="credits">
               </div>
             </div>
           </div>

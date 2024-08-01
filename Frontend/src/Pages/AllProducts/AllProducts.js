@@ -15,15 +15,14 @@ export default function AllProducts() {
     }
   }, [products, dispatch]);
 
-
     return (
     <>
-      <section id="blog" class="blog-mf sect-pt4 route">
+      <section id="blog" className="blog-mf sect-pt4 route">
         <br /> <br />
-        <div class="container">
-          <div class="row">
+        <div className="container">
+          <div className="row">
             {products.length > 0 && products.map((product) => (
-              <Product productData={product} />
+              <Product key={product.sku} productData={product} />
             ))}
           </div>
         </div>
