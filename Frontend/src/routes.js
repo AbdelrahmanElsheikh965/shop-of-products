@@ -4,7 +4,7 @@ import Footer from "./Pages/Footer/Footer";
 import NotFound from "./Pages/NotFound/NotFound";
 import AllProducts from "./Pages/AllProducts/AllProducts";
 import AddNewProduct from "./Pages/AddNewProduct/AddNewProduct";
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { checkRequired, checkRequiredAndNumber, saveProductData } from "./Helpers";
 import { useDispatch } from "react-redux";
 import { addProduct } from "./store/productSlice";
@@ -37,15 +37,19 @@ const Layout = () => {
   const handleSave = () => {
       if (validateForm()) {
           setFormData({ sku: "", name: "", price: "" });
-          // saveProductData(navigator);    
+          setErrors({});
+          saveProductData(navigator);    
           if (formData.size) {
             dispatch(addProduct({...formData, type: 'dvd', size: formData.size}))            
           } else if (formData.weight) {
             dispatch(addProduct({...formData, type: 'book', weight: formData.weight}))            
           }  else if (formData.height) {
-            dispatch(addProduct({...formData, type: 'furniture', height: formData.height, width: formData.width, length: formData.length}))            
+            dispatch(addProduct({...formData, type: 'furniture', 
+                height: formData.height,
+                width: formData.width,
+                length: formData.length
+              }))            
           }
-          navigator('/');
       }
   };
 
