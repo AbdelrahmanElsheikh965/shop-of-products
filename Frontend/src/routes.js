@@ -7,7 +7,7 @@ import AddNewProduct from "./Pages/AddNewProduct/AddNewProduct";
 import { createContext, useState } from "react";
 import { checkRequired, checkRequiredAndNumber, saveProductData } from "./Helpers";
 import { useDispatch } from "react-redux";
-import { addProduct, deleteProducts } from "./store/productSlice";
+import { addProduct, massDeleteProducts } from "./store/productSlice";
 import $ from "jquery";
 
 export const FormContext = createContext();
@@ -61,10 +61,10 @@ const Layout = () => {
       checkedCheckboxes.each(function() {
         const higherParent = $(this).closest('.card-body');  
         const sku = higherParent.find('.pk').text().trim();
-        data.push({ sku });
+        data.push(sku);
       });
          
-      dispatch(deleteProducts(data));
+      dispatch(massDeleteProducts(data));
   }; 
 
   const handleChange = (event) => {

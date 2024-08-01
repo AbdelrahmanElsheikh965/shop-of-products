@@ -30,10 +30,32 @@ abstract class Product
     $conn->close();
   }
 
-  public static function deleteMultipleProducts()
+  public static function deleteMultipleProducts($productsSkus)
   {
-    $conn = Database::get_database_instance();
-    //
+    $productsSkus = $productsSkus['products'];
+    $length = count($productsSkus);
+
+    if ( $length > 0) {
+
+      $conn = Database::get_database_instance();
+      $delQuery = "DELETE FROM products WHERE sku IN (";
+
+      if ($length == 1) {
+        $delQuery .= " '$productsSkus[0]' );";
+      } else {      
+        
+        for ($i=0; $i < $length-1 ; $i++) {           
+          $delQuery .= " '$productsSkus[$i]' , ";          
+        }
+        $lastIndex = $length - 1;
+        $delQuery .= " '$productsSkus[$lastIndex]' );";          
+      }
+
+      $result = mysqli_query($conn, $delQuery);
+      return ($result && mysqli_affected_rows($conn) > 0) ? true : false;
+    }
+
+    return false;
   }
 
   protected abstract function save($data);

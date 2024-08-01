@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { listProducts } from '../APIs/Endpoints';
+import { deleteProducts, listProducts } from '../APIs/Endpoints';
 
 export const getAllProducts = createAsyncThunk('getAllProducts', async () => {
     const products = await listProducts();
@@ -12,10 +12,9 @@ export const addProduct = createAsyncThunk('addProduct', async (newProduct) => {
   return newProduct;
 });
 
-export const deleteProducts = createAsyncThunk('deleteProducts', async (targetProducts) => {
-  // Simulate an asynchronous operation, such as an API call
-  await new Promise((resolve) => setTimeout(resolve, 100)); // Simulate network delay
-  return targetProducts; 
+export const massDeleteProducts = createAsyncThunk('massDeleteProducts', async (targetProducts) => {
+  const deleted = await deleteProducts(targetProducts);
+  return targetProducts;     
 });
 
 const productsSlice = createSlice({
@@ -33,12 +32,12 @@ const productsSlice = createSlice({
       .addCase(addProduct.fulfilled, (state, action) => {        
         state.data.push(action.payload); 
       })
-      .addCase(deleteProducts.fulfilled, (state, action) => {    
-        const removedProducts = action.payload    
+      .addCase(massDeleteProducts.fulfilled, (state, action) => {    
+        const removedProducts = action.payload            
         removedProducts.forEach(prod => {          
-          state.data = state.data.filter( p => p.sku !== prod.sku ); 
-        });
-      });;
+          state.data = state.data.filter( p => p.sku !== prod ); 
+        });        
+      });
   },
 });
 

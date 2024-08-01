@@ -1,16 +1,13 @@
 import axiosInstance from "./Axios";
 
-export const saveProduct = (productType) => {
-  return axiosInstance.post(
-    `/products/`,
+export const deleteProducts = (products) => {
+  return axiosInstance.delete(
+    `/index.php/product/delete`,
     {
-      type: productType
-    },
-    {
-      headers: {
-        "Content-Type": "application/json"
-      },
-    }
+      data:{
+        products
+      }
+    }    
   );
 };
 

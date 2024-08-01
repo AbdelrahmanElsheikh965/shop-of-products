@@ -102,6 +102,48 @@ class ProductController extends BaseController
 
     public function deleteAction()
     {
-        //
+        $strErrorDesc = '';        
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
+        if (strtoupper($requestMethod) == 'DELETE') {
+            try {
+
+                $input = file_get_contents("php://input");
+                
+                // Decode the JSON input to an associative array
+                $data = json_decode($input, true);
+
+                if (json_last_error() === JSON_ERROR_NONE) {
+
+                    Product::deleteMultipleProducts($data);
+
+                    echo json_encode([
+                        "status" => "success",
+                        "message" => "These products are deleted successfully!"
+                      ]);
+
+                } else {
+                    // Handle JSON decoding error
+                    echo json_encode([
+                        "status" => "error",
+                        "message" => "Invalid JSON"
+                    ]);
+                }
+            } catch (Error $e) {
+                $strErrorDesc = $e->getMessage() . 'Something went wrong! Please contact support.';
+                $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
+            }
+        } else {
+            $strErrorDesc = 'Method not supported';
+            $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
+        }
+
+        // send output 
+        if ($strErrorDesc) {
+            $this->sendOutput(
+                json_encode(array('error' => $strErrorDesc)),
+                array('Content-Type: application/json', $strErrorHeader)
+            );
+        }
+
     }
 }
