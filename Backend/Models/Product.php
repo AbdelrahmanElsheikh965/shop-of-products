@@ -43,12 +43,13 @@ abstract class Product
       if ($length == 1) {
         $delQuery .= " '$productsSkus[0]' );";
       } else {      
-        
-        for ($i=0; $i < $length-1 ; $i++) {           
-          $delQuery .= " '$productsSkus[$i]' , ";          
+        for ($i = 0; $i < $length - 1; $i++) {          
+          //  $delQuery .= " '$productsSkus[$i]' , ";          
+          $delQuery .= " '" . $productsSkus[$i] . "' , ";
         }
         $lastIndex = $length - 1;
-        $delQuery .= " '$productsSkus[$lastIndex]' );";          
+        $delQuery .= " '" . $productsSkus[$lastIndex] . "' );";
+        
       }
 
       $result = mysqli_query($conn, $delQuery);
