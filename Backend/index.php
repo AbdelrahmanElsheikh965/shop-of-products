@@ -18,4 +18,5 @@ call_user_func(array($objFeedController, $strMethodName));
  * https://localhost/index.php/{MODULE_NAME}/{METHOD_NAME}
  * http://127.0.0.1:8000/index.php/product/list
  * http://127.0.0.1:8000/index.php/product/add
+ * http://127.0.0.1:8000/index.php/product/delete
  */

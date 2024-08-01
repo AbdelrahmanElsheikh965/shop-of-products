@@ -30,6 +30,12 @@ abstract class Product
     $conn->close();
   }
 
+  public static function deleteMultipleProducts()
+  {
+    $conn = Database::get_database_instance();
+    //
+  }
+
   protected abstract function save($data);
 
 }

@@ -19,7 +19,7 @@ export default function Product({ productData }) {
 
             {productData.type === "dvd" && <p>Size: {productData.size} MB </p>}
             {productData.type === "book" && <p>Weight: {productData.weight}KG </p>}
-            {productData.type === "furniture" && <p> Dimension: {productData.height}X{productData.width}X{productData.length}
+            {productData.type === "furniture" && <p> Dimension: {productData.height}x{productData.width}x{productData.length}
                </p>}
           </div>
         </div>

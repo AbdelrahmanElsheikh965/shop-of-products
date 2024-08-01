@@ -7,28 +7,25 @@ export const getAllProducts = createAsyncThunk('getAllProducts', async () => {
   }
 );
 
+export const addProduct = createAsyncThunk('addProduct', async (newProduct) => {
+  const product = await setTimeout(console.log("Simulating adding product"), 100);
+  return newProduct;
+});
+
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
     data: [],
-    status: 'idle',
-    error: null,
   },
   reducers: {
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.pending, (state) => {
-        state.status = 'loading';
-      })
       .addCase(getAllProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
         state.data = action.payload.data;
-        console.log("action.payload", action.payload);
       })
-      .addCase(getAllProducts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+      .addCase(addProduct.fulfilled, (state, action) => {        
+        state.data.push(action.payload); 
       });
   },
 });
