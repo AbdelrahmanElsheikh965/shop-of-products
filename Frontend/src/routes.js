@@ -54,6 +54,12 @@ const Layout = () => {
       }
   };
 
+  const handleCancel = () => {
+    setFormData({ sku: "", name: "", price: "" });
+    setErrors({});
+    navigator('/');
+  }
+
   function handleMassDelete () {
     let data = [];
     
@@ -73,7 +79,7 @@ const Layout = () => {
   };
 
   return (
-    <FormContext.Provider value={{ formData, errors, handleChange, handleSave, handleMassDelete }}>
+    <FormContext.Provider value={{ formData, errors, handleChange, handleSave, handleMassDelete, handleCancel }}>
       <Header />
       <Outlet />
       {/* <Footer /> */}

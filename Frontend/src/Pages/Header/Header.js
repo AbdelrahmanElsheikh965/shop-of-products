@@ -5,7 +5,7 @@ import { FormContext } from "../../routes";
 export default function Header() {
 
   const navigator = useNavigate();
-  const { handleSave, handleMassDelete } = useContext(FormContext);
+  const { handleSave, handleMassDelete, handleCancel } = useContext(FormContext);
   const [showAddProductLinks, setshowAddProductLinks] = useState(false);
  
   // Configuring paths
@@ -21,9 +21,7 @@ export default function Header() {
     navigator('/add-product');
   };
 
-  const handleCancel = () => {
-    navigator('/');
-  }
+  
 
   return (
     <header
