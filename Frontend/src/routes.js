@@ -44,8 +44,6 @@ const Layout = () => {
              (!newErrors.size || !newErrors.weight || !newErrors.height || !newErrors.width || !newErrors.length);
   };
   
-
-  
   const handleSave = () => {
       if (validateForm()) {
           setFormData({ sku: "", name: "", price: "" });
@@ -93,7 +91,7 @@ const Layout = () => {
     <FormContext.Provider value={{ formData, errors, handleChange, handleSave, handleMassDelete, handleCancel, getProducts }}>
       <Header />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </FormContext.Provider>
   )
 }

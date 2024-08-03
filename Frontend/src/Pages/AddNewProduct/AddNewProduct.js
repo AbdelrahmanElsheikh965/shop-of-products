@@ -37,7 +37,7 @@ export default function AddNewProduct () {
           </div>
         </div>
 
-        <br />
+         
 
         {/* Name */}
         <div className="row">          
@@ -57,7 +57,7 @@ export default function AddNewProduct () {
           </div>
         </div>
 
-        <br />
+         
 
         {/* Price */}
         <div className="row">          
@@ -77,7 +77,7 @@ export default function AddNewProduct () {
           </div>
         </div>
 
-        <br />
+         
 
         {/* Type Switcher */}
         <div className="form-group" style={{ display: "flex", alignItems: "center" }}>
@@ -89,7 +89,7 @@ export default function AddNewProduct () {
           </select>
         </div>
 
-        <br />
+         
         {/* Size */}
         {type === 'DVD' && (
             <div className="row">          
@@ -99,15 +99,15 @@ export default function AddNewProduct () {
                   <input   value={formData.size}
                                 onChange={handleChange} type="text" name="size" id="size" style={{ width: "20%", height: "15px" }} 
                                 />
-                </div> <br />
-                <strong> Please, provide disc space in MB. </strong>           
+                </div>          
               </div>
               <div className="col-sm-4">
                 {errors.size && 
                 <div className="alert alert-danger" role="alert" style={{ 'height': '.25em', 'text-align': 'center', 'vertical-align': 'middle', 'line-height': '.25em'  }}>
                   {errors.size}
                 </div>}            
-              </div>
+              </div><br />
+              <strong> Please, provide disc space in MB. </strong>  
           </div>
         )}
 
@@ -120,15 +120,15 @@ export default function AddNewProduct () {
                 <input   value={formData.weight}
                               onChange={handleChange} type="text" name="weight" id="weight" style={{ width: "20%", height: "15px" }} 
                               />
-              </div>  <br />
-              <strong> Please, provide weight in Kg. </strong>            
+              </div>             
             </div>
             <div className="col-sm-4">
               {errors.weight && 
               <div className="alert alert-danger" role="alert" style={{ 'height': '.25em', 'text-align': 'center', 'vertical-align': 'middle', 'line-height': '.25em'  }}>
                 {errors.weight}
               </div>}            
-            </div>
+            </div> <br />
+            <strong> Please, provide weight in Kg. </strong>
           </div>
         )}
 
@@ -151,7 +151,7 @@ export default function AddNewProduct () {
                 </div>
               </div>
 
-            <br />
+             
            
            
             <div className="row">          
@@ -170,7 +170,7 @@ export default function AddNewProduct () {
                 </div>
               </div>
 
-            <br />
+             
             
             <div className="row">          
                 <div className="col-sm-12">
@@ -178,15 +178,15 @@ export default function AddNewProduct () {
                     <label for="length" style={{ width: "12%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>Length (CM)</label>
                     <input   value={formData.length} onChange={handleChange} type="text" name="length"
                               id="length" style={{ width: "20%", height: "15px" }} />
-                  </div>    <br />
-                  <strong> Please, provide dimensions in CM </strong>          
+                  </div>             
                 </div>
                 <div className="col-sm-4">
                   {errors.length && 
                   <div className="alert alert-danger" role="alert" style={{ 'height': '.25em', 'text-align': 'center', 'vertical-align': 'middle', 'line-height': '.25em'  }}>
                     {errors.length}
                   </div>}            
-                </div>
+                </div> <br />
+                <strong> Please, provide dimensions in CM </strong>
               </div>
 
           </>
