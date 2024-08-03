@@ -68,8 +68,9 @@ class ProductController extends BaseController
                 if (json_last_error() === JSON_ERROR_NONE) {
                     $ProductClass = $rawData['type'];
                     $ProductData = $rawData['data'];
-                    $product = new $ProductClass();
-                    Product::addProduct($product, $ProductData);                    
+                    $PR = "App\Models\\$ProductClass";
+                    $product = new $PR();
+                    Product::addProduct($product, $ProductData);    
                 } else {
                     // Handle JSON decoding error
                     echo json_encode([
