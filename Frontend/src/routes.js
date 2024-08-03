@@ -4,10 +4,10 @@ import Footer from "./Pages/Footer/Footer";
 import NotFound from "./Pages/NotFound/NotFound";
 import AllProducts from "./Pages/AllProducts/AllProducts";
 import AddNewProduct from "./Pages/AddNewProduct/AddNewProduct";
-import { createContext, useState } from "react";
-import { checkRequired, checkRequiredAndNumber, saveProductData } from "./Helpers";
-import { useDispatch } from "react-redux";
-import { addProduct, massDeleteProducts } from "./store/productSlice";
+import { createContext, useEffect, useState } from "react";
+import { checkRequired, checkRequiredAndNumber, checkSkuUniqueness, saveProductData } from "./Helpers";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, getAllProducts, massDeleteProducts, selectData } from "./store/productSlice";
 import $ from "jquery";
 
 export const FormContext = createContext();
@@ -16,11 +16,22 @@ const Layout = () => {
 
   const navigator = useNavigate();
   const [formData, setFormData] = useState({ sku: "", name: "", price: "" });
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});  
+  const dispatch = useDispatch();
+  const products = useSelector(selectData);
+
+  useEffect(() => {
+    if (products.length === 0) {
+      dispatch(getAllProducts());
+    }
+  }, [products, dispatch]);
+
+  const getProducts = () => products;
 
   const validateForm = () => {
       const newErrors = { sku: '', name: '', price: '' };    
       checkRequired(newErrors, 'sku', formData.sku)
+      checkSkuUniqueness(newErrors, 'sku', formData.sku, products);
       checkRequired(newErrors, 'name', formData.name)
       checkRequiredAndNumber(newErrors, 'price', formData.price)
       checkRequiredAndNumber(newErrors, 'size', formData.size)
@@ -33,8 +44,8 @@ const Layout = () => {
              (!newErrors.size || !newErrors.weight || !newErrors.height || !newErrors.width || !newErrors.length);
   };
   
-  const dispatch = useDispatch();
 
+  
   const handleSave = () => {
       if (validateForm()) {
           setFormData({ sku: "", name: "", price: "" });
@@ -79,7 +90,7 @@ const Layout = () => {
   };
 
   return (
-    <FormContext.Provider value={{ formData, errors, handleChange, handleSave, handleMassDelete, handleCancel }}>
+    <FormContext.Provider value={{ formData, errors, handleChange, handleSave, handleMassDelete, handleCancel, getProducts }}>
       <Header />
       <Outlet />
       {/* <Footer /> */}

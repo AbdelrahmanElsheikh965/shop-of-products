@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Product from "../../Components/Product";
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts, selectData } from "../../store/productSlice";
+import { FormContext } from "../../routes";
 
 export default function AllProducts() {
 
-  // Products slice
-  const dispatch = useDispatch();
-  const products = useSelector(selectData);
-
-  useEffect(() => {
-    if (products.length === 0) {
-      dispatch(getAllProducts());
-    }
-  }, [products, dispatch]);
+  const { getProducts } = useContext(FormContext);
+  const products = getProducts();
 
     return (
     <>

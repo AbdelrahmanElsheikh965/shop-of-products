@@ -17,6 +17,16 @@ export const checkRequired = (errorsObject, field, value) => {
   return true;
 }
 
+const validateSkuUniqueness = (sku, products) => products.find(p => p.sku === sku)
+
+export const checkSkuUniqueness = (errorsObject, field, value, products) => {  
+  if (validateSkuUniqueness(value, products)) {
+    errorsObject[field] = 'Attenion, this sku is already added there!';
+    return false;
+  }
+  return true;
+}
+
 
 export const saveProductData = (navigate) => {
 
