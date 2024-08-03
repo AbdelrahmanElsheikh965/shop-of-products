@@ -99,7 +99,8 @@ export default function AddNewProduct () {
                   <input   value={formData.size}
                                 onChange={handleChange} type="text" name="size" id="size" style={{ width: "20%", height: "15px" }} 
                                 />
-                </div>            
+                </div> <br />
+                <strong> Please, provide disc space in MB. </strong>           
               </div>
               <div className="col-sm-4">
                 {errors.size && 
@@ -119,7 +120,8 @@ export default function AddNewProduct () {
                 <input   value={formData.weight}
                               onChange={handleChange} type="text" name="weight" id="weight" style={{ width: "20%", height: "15px" }} 
                               />
-              </div>            
+              </div>  <br />
+              <strong> Please, provide weight in Kg. </strong>            
             </div>
             <div className="col-sm-4">
               {errors.weight && 
@@ -176,7 +178,8 @@ export default function AddNewProduct () {
                     <label for="length" style={{ width: "12%", display: "inline-block", fontFamily: "calibri", fontSize: "1.5em"}}>Length (CM)</label>
                     <input   value={formData.length} onChange={handleChange} type="text" name="length"
                               id="length" style={{ width: "20%", height: "15px" }} />
-                  </div>            
+                  </div>    <br />
+                  <strong> Please, provide dimensions in CM </strong>          
                 </div>
                 <div className="col-sm-4">
                   {errors.length && 
