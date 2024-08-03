@@ -1,6 +1,12 @@
 <?php
 
-require __DIR__ . "/includes/bootstrap.php";
+
+require 'vendor/autoload.php';
+
+use App\Controllers\ProductController;
+
+// include main configuration file 
+$env = parse_ini_file('config.env');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $uri = explode( '/', $uri );

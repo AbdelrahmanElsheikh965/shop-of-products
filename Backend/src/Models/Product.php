@@ -1,6 +1,12 @@
 <?php
 
-require_once 'Database.php';
+// require_once 'Database.php';
+
+namespace App\Models;
+
+use App\Models\Database;
+
+use App\Interfaces\ProductInterface;
 
 abstract class Product
 {
@@ -59,6 +65,9 @@ abstract class Product
     return false;
   }
 
-  protected abstract function save($data);
+  public static function addProduct(ProductInterface $product, $data)
+  {
+    $product->add($data);
+  }
 
 }

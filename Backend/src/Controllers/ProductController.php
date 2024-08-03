@@ -1,14 +1,27 @@
 <?php
 
-require  __DIR__ . "/../" . "/Models/DVD.php";
-require  __DIR__ . "/../" . "/Models/Book.php";
-require  __DIR__ . "/../" . "/Models/Furniture.php";
-require  __DIR__ . "/../" . "/Helpers/ProductHelper.php";
+namespace App\Controllers;
+
+use App\Controllers\BaseController;
+use App\Models\Product;
+use Error;
 
 class ProductController extends BaseController
 {
 
-    use ProductHepler;
+    // We need to know type to display right corresponding attribute in card.
+    private function classifyData(&$data)
+    {
+        foreach ($data as &$product) {
+            if (!isset($product['size']) && !isset($product['weight'])) {
+                $product['type'] = 'furniture';
+            } else if (isset($product['weight'])) {
+                $product['type'] = 'book';
+            } else if (isset($product['size'])) {
+                $product['type'] = 'dvd';
+            }
+        }
+    }
 
     public function listAction()
     {
@@ -44,20 +57,6 @@ class ProductController extends BaseController
         }
     }
 
-    // We need to know type to display right corresponding attribute in card.
-    private function classifyData(&$data)
-    {
-        foreach ($data as &$product) {
-            if (!isset($product['size']) && !isset($product['weight'])) {
-                $product['type'] = 'furniture';
-            } else if (isset($product['weight'])) {
-                $product['type'] = 'book';
-            } else if (isset($product['size'])) {
-                $product['type'] = 'dvd';
-            }
-        }
-    }
-
     public function addAction()
     {
         $strErrorDesc = '';
@@ -65,16 +64,12 @@ class ProductController extends BaseController
         if (strtoupper($requestMethod) == 'POST') {
             try {
 
-                $rawData = $_POST;  //file_get_contents("php://input");
-
+                $rawData = $_POST;
                 if (json_last_error() === JSON_ERROR_NONE) {
                     $ProductClass = $rawData['type'];
                     $ProductData = $rawData['data'];
-
-                    // Check if the class exists
-                    if (class_exists($ProductClass)) {
-                        $this->addProduct($ProductClass, $ProductData);
-                    }
+                    $product = new $ProductClass();
+                    Product::addProduct($product, $ProductData);                    
                 } else {
                     // Handle JSON decoding error
                     echo json_encode([

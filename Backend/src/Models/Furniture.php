@@ -1,7 +1,45 @@
 <?php
 
-class Furniture extends Product
+namespace App\Models;
+
+use App\Interfaces\ProductInterface;
+
+class Furniture extends Product implements ProductInterface
 {
+
+  public function add($data) {
+    
+    $res_1 = '';
+    $res_2 = '';
+
+    $this->setSku($data['sku']);
+    $this->setName($data['name']);
+    $this->setPrice($data['price']);
+
+    $this->setHeight($data['height']);
+    $this->setLength($data['length']);
+    $this->setWidth($data['width']);
+
+    $res_1 = Database::saveIntoDB('products', [
+      'sku' => $this->getSku(),
+      'name' => $this->getName(),
+      'price' =>  $this->getPrice()
+    ]);
+
+    $res_2 = Database::saveIntoDB('furnitures', [
+      'product_sku' => $this->getSku(),
+      'length' => $this->getLength(),
+      'width' => $this->getWidth(),
+      'height' => $this->getHeight(),
+    ]);
+
+    echo json_encode([
+      "status" => "success",
+      "message" => "Your product is added successfully!",
+      "data_1" => $res_1,
+      "data_2" => $res_2
+    ]);
+  }
 
   /** sku */
   public function setSku($sku) {
@@ -61,10 +99,6 @@ class Furniture extends Product
   
   public function getLength() {
     return $this->length;
-  }
-
-  public function save($data) {
-    return Database::saveIntoDB('furnitures', $data);
   }
 
 }
