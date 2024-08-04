@@ -1,14 +1,25 @@
 import axiosInstance from "./Axios";
+import $ from 'jquery';
 
 export const deleteProducts = (products) => {
-  return axiosInstance.delete(
-    `/index.php/product/delete`,
-    {
-      data:{
-        products
-      }
-    }    
-  );
+  // used POST as hosting provider does not support DELETE and PATCH methods.
+  
+  var productData = {
+      products
+    };  
+
+  $.ajax({
+    url: 'http://127.0.0.1:8000/index.php/product/delete',
+    type: 'POST',
+    data: productData,
+    success: function(response) {
+      console.log('Form submitted successfully:', response);
+    },
+    error: function(error) {
+      console.log('Error submitting form:', error);
+    }
+  });
+
 };
 
 export const listProducts = () => {

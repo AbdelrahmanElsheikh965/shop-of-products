@@ -100,18 +100,13 @@ class ProductController extends BaseController
     {
         $strErrorDesc = '';        
         $requestMethod = $_SERVER["REQUEST_METHOD"];
-        if (strtoupper($requestMethod) == 'DELETE') {
+        if (strtoupper($requestMethod) == 'POST') {
             try {
-
-                $input = file_get_contents("php://input");
-                
-                // Decode the JSON input to an associative array
-                $data = json_decode($input, true);
 
                 if (json_last_error() === JSON_ERROR_NONE) {
 
-                    Product::deleteMultipleProducts($data);
-
+                    Product::deleteMultipleProducts($_POST);
+                    
                     echo json_encode([
                         "status" => "success",
                         "message" => "These products are deleted successfully!"

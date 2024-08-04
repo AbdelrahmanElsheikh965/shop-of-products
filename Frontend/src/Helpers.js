@@ -57,7 +57,7 @@ export const saveProductData = (navigate) => {
   }
 
   $.ajax({
-    url: 'http://api.minimartstore.great-site.net/index.php/product/add',
+    url: 'http://127.0.0.1:8000/index.php/product/add',
     type: 'POST',
     data: productData,
     success: function(response) {
