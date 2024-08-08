@@ -2,6 +2,7 @@
 
 This is a simple e-commerce app that let's you (without any auth needed) create and delete some products 
 whether it's a (dvd - book - furniture) and that's it :)
+Live : https://api.minimartstore.great-site.net/
 
 ## Table of Contents
 
