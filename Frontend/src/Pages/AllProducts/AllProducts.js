@@ -15,7 +15,7 @@ export default function AllProducts() {
         <br /> <br />
         <div className="container">
           <div className="row">
-            {products.length > 0 && products.map((product) => (
+            {typeof products===Array && products.length > 0 && products.map((product) => (
               <Product key={product.sku} productData={product} />
             ))}
           </div>

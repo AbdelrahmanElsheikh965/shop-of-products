@@ -18,7 +18,7 @@ abstract class Product
   {
     $conn = Database::get_database_instance();
     mysqli_set_charset($conn, 'utf8');
-    
+
     $query = "SELECT products.*, furnitures.height, furnitures.width, furnitures.length, books.weight, dvds.size 
             FROM products 
             LEFT JOIN dvds ON products.sku = dvds.product_sku
@@ -26,7 +26,7 @@ abstract class Product
             LEFT JOIN books ON products.sku = books.product_sku
             ORDER BY products.sku;
           ";
-          
+
     $result = mysqli_query($conn, $query);
     $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
     if (mysqli_num_rows($result) > 0) {
@@ -41,25 +41,23 @@ abstract class Product
     $productsSkus = $productsSkus['products'];
     $length = count($productsSkus);
 
-    if ( $length > 0) {
-
+    if ($length > 0) {
       $conn = Database::get_database_instance();
-      $delQuery = "DELETE FROM products WHERE sku IN (";
 
-      if ($length == 1) {
-        $delQuery .= " '$productsSkus[0]' );";
-      } else {      
-        for ($i = 0; $i < $length - 1; $i++) {          
-          //  $delQuery .= " '$productsSkus[$i]' , ";          
-          $delQuery .= " '" . $productsSkus[$i] . "' , ";
-        }
-        $lastIndex = $length - 1;
-        $delQuery .= " '" . $productsSkus[$lastIndex] . "' );";
-        
-      }
+      // Create a list of placeholders for the prepared statement
+      $placeholders = implode(',', array_fill(0, $length, '?'));
+      $delQuery = "DELETE FROM products WHERE sku IN ($placeholders)";
 
-      $result = mysqli_query($conn, $delQuery);
-      return ($result && mysqli_affected_rows($conn) > 0) ? true : false;
+      $stmt = $conn->prepare($delQuery);
+
+      // Bind the parameters dynamically
+      $types = str_repeat('s', $length); // Assuming all SKUs are strings
+      $stmt->bind_param($types, ...$productsSkus);
+
+      // Execute the query
+      $result = $stmt->execute();
+
+      return ($result && $stmt->affected_rows > 0);
     }
 
     return false;
@@ -69,5 +67,4 @@ abstract class Product
   {
     $product->add($data);
   }
-
 }
