@@ -8,16 +8,15 @@ use Error;
 
 class ProductController extends BaseController
 {
-
     // We need to know type to display right corresponding attribute in card.
     private function classifyData(&$data)
     {
         foreach ($data as &$product) {
             if (!isset($product['size']) && !isset($product['weight'])) {
                 $product['type'] = 'furniture';
-            } else if (isset($product['weight'])) {
+            } elseif (isset($product['weight'])) {
                 $product['type'] = 'book';
-            } else if (isset($product['size'])) {
+            } elseif (isset($product['size'])) {
                 $product['type'] = 'dvd';
             }
         }
@@ -43,7 +42,7 @@ class ProductController extends BaseController
         }
 
 
-        // send output 
+        // send output
         if (!$strErrorDesc) {
             $this->sendOutput(
                 $responseData,
@@ -63,14 +62,13 @@ class ProductController extends BaseController
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         if (strtoupper($requestMethod) == 'POST') {
             try {
-
                 $rawData = $_POST;
                 if (json_last_error() === JSON_ERROR_NONE) {
                     $ProductClass = $rawData['type'];
                     $ProductData = $rawData['data'];
                     $PR = "App\Models\\$ProductClass";
                     $product = new $PR();
-                    Product::addProduct($product, $ProductData);    
+                    Product::addProduct($product, $ProductData);
                 } else {
                     // Handle JSON decoding error
                     echo json_encode([
@@ -87,7 +85,7 @@ class ProductController extends BaseController
             $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
         }
 
-        // send output 
+        // send output
         if ($strErrorDesc) {
             $this->sendOutput(
                 json_encode(array('error' => $strErrorDesc)),
@@ -98,20 +96,16 @@ class ProductController extends BaseController
 
     public function deleteAction()
     {
-        $strErrorDesc = '';        
+        $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         if (strtoupper($requestMethod) == 'POST') {
             try {
-
                 if (json_last_error() === JSON_ERROR_NONE) {
-
                     Product::deleteMultipleProducts($_POST);
-                    
                     echo json_encode([
                         "status" => "success",
                         "message" => "These products are deleted successfully!"
-                      ]);
-
+                    ]);
                 } else {
                     // Handle JSON decoding error
                     echo json_encode([
@@ -128,13 +122,12 @@ class ProductController extends BaseController
             $strErrorHeader = 'HTTP/1.1 422 Unprocessable Entity';
         }
 
-        // send output 
+        // send output
         if ($strErrorDesc) {
             $this->sendOutput(
                 json_encode(array('error' => $strErrorDesc)),
                 array('Content-Type: application/json', $strErrorHeader)
             );
         }
-
     }
 }
