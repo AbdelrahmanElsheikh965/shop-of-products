@@ -8,8 +8,6 @@ whether it's a (dvd - book - furniture) and that's it :)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Prerequisites
 
