@@ -4,5 +4,5 @@ namespace App\Interfaces;
 
 interface ProductInterface
 {
-  public function add($data);
+    public function add($data);
 }

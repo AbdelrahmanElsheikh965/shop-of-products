@@ -1,15 +1,14 @@
 <?php
 
-
 require 'vendor/autoload.php';
 
 use App\Controllers\ProductController;
 
-// include main configuration file 
+// include main configuration file
 $env = parse_ini_file('config.env');
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
+$uri = explode('/', $uri);
 
 if ((isset($uri[2]) && $uri[2] != 'product') || !isset($uri[3])) {
     header("HTTP/1.1 404 Not Found");
