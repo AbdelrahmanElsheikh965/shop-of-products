@@ -16,17 +16,22 @@ if ((isset($uri[2]) && $uri[2] != 'product') || !isset($uri[3])) {
     exit();
 }
 
-// Handle preflight requests (OPTIONS)
-if ($_SERVER["REQUEST_METHOD"] === 'OPTIONS') {
-    header('Access-Control-Allow-Origin: http://localhost:3000');
-    header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    header('Access-Control-Allow-Headers: Content-Type, Authorization');
-    header('HTTP/1.1 200 OK');
-    exit();
-} 
+// Specify domains from which requests are allowed
+header('Access-Control-Allow-Origin: *');
 
-header("Access-Control-Allow-Origin: http://localhost:3000");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+// Specify which request methods are allowed
+header('Access-Control-Allow-Methods: PUT, GET, POST, DELETE, OPTIONS');
+
+// Additional headers which may be sent along with the CORS request
+header('Access-Control-Allow-Headers: X-Requested-With,Authorization,Content-Type');
+
+// Set the age to 1 day to improve speed/caching.
+header('Access-Control-Max-Age: 86400');
+
+// Exit early so the page isn't fully loaded for options requests
+if (strtolower($_SERVER['REQUEST_METHOD']) == 'options') {
+    exit();
+}
 
 $objFeedController = new ProductController();
 $strMethodName = $uri[3] . 'Action';

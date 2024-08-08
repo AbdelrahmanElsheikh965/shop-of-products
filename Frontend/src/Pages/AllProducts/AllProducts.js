@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import Product from "../../Components/Product";
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts, selectData } from "../../store/productSlice";
 import { FormContext } from "../../routes";
 
 export default function AllProducts() {
@@ -15,7 +13,7 @@ export default function AllProducts() {
         <br /> <br />
         <div className="container">
           <div className="row">
-            {typeof products===Array && products.length > 0 && products.map((product) => (
+            {products.length > 0 && products.map((product) => (
               <Product key={product.sku} productData={product} />
             ))}
           </div>

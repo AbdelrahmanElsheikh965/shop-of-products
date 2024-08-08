@@ -17,7 +17,6 @@ abstract class Product
   public static function getAllProducts()
   {
     $conn = Database::get_database_instance();
-    mysqli_set_charset($conn, 'utf8');
 
     $query = "SELECT products.*, furnitures.height, furnitures.width, furnitures.length, books.weight, dvds.size 
             FROM products 
@@ -28,11 +27,8 @@ abstract class Product
           ";
 
     $result = mysqli_query($conn, $query);
-    $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    if (mysqli_num_rows($result) > 0) {
-      return $data;
-    }
-    return false;
+    $data = mysqli_fetch_all($result, MYSQLI_ASSOC);  
+    return $data;
     $conn->close();
   }
 

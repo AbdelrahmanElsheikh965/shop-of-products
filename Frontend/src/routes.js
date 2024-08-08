@@ -21,10 +21,8 @@ const Layout = () => {
   const products = useSelector(selectData);
 
   useEffect(() => {
-    if (products.length === 0) {
       dispatch(getAllProducts());
-    }
-  }, [products, dispatch]);
+  }, [products.length]);
 
   const getProducts = () => products;
 

@@ -9,8 +9,8 @@ export const deleteProducts = (products) => {
     };  
 
   $.ajax({
-    // production url: 'https://api.minimartstore.great-site.net/api/index.php/product/delete',
-    url: 'http://127.0.0.1:8000/index.php/product/delete',
+    url: 'https://api.minimartstore.great-site.net/api/index.php/product/delete',
+    // url: 'http://127.0.0.1:8000/index.php/product/delete',
     type: 'POST',
     data: productData,
     success: function(response) {
